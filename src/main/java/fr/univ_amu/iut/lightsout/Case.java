@@ -5,21 +5,21 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Button;
 
 
-public class Carreau extends Button {
+public class Case extends Button {
 
-    private static final int TAILLE_CARREAU = 50;
+    private static final int TAILLE_CASE = 50;
     private Position position;
     private BooleanProperty estAllumé;
 
-    public Carreau(int x, int y) {
+    public Case(int x, int y) {
         position = new Position(x, y);
 
         estAllumé = new SimpleBooleanProperty();
         allumer();
 
-        final int tailleCarreau = TAILLE_CARREAU;
-        setMinSize(tailleCarreau, tailleCarreau);
-        setPrefSize(tailleCarreau, tailleCarreau);
+        final int tailleCase = TAILLE_CASE;
+        setMinSize(tailleCase, tailleCase);
+        setPrefSize(tailleCase, tailleCase);
     }
 
     public Position getPosition() {

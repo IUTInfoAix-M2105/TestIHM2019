@@ -19,14 +19,14 @@ public class Plateau extends GridPane {
 
     private int taille;
     private IntegerProperty nombreDeCoupsJoués;
-    private IntegerProperty nombreCarreauEteint;
+    private IntegerProperty nombreDeCasesEteintes;
     private BooleanProperty aGagné;
-    private Carreau[][] carreaux;
-    private EventHandler<ActionEvent> carreauListener = actionEvent -> {
-        Carreau carreauChoisi = (Carreau) actionEvent.getSource();
+    private Case[][] cases;
+    private EventHandler<ActionEvent> caseListener = actionEvent -> {
+        Case caseChoisi = (Case) actionEvent.getSource();
         nombreDeCoupsJoués.set(nombreDeCoupsJoués.get() + 1);
-        carreauChoisi.permuter();
-        permuterVoisin(carreauChoisi);
+        caseChoisi.permuter();
+        permuterVoisin(caseChoisi);
     };
 
     public Plateau() {
@@ -36,7 +36,7 @@ public class Plateau extends GridPane {
     public Plateau(int taille) {
         this.taille = taille;
         this.nombreDeCoupsJoués = new SimpleIntegerProperty(0);
-        this.nombreCarreauEteint = new SimpleIntegerProperty(0);
+        this.nombreDeCasesEteintes = new SimpleIntegerProperty(0);
         this.aGagné = new SimpleBooleanProperty(false);
 
         setHgap(3);
@@ -48,12 +48,12 @@ public class Plateau extends GridPane {
     }
 
     private void remplir() {
-        carreaux = new Carreau[taille][taille];
+        cases = new Case[taille][taille];
         for (int i = 0; i < taille; i++) {
             for (int j = 0; j < taille; j++) {
-                carreaux[i][j] = new Carreau(i, j);
-                carreaux[i][j].setOnAction(carreauListener);
-                add(carreaux[i][j], i, j);
+                cases[i][j] = new Case(i, j);
+                cases[i][j].setOnAction(caseListener);
+                add(cases[i][j], i, j);
             }
         }
     }
@@ -61,7 +61,7 @@ public class Plateau extends GridPane {
     private void toutAllumer() {
         for (int i = 0; i < taille; i++) {
             for (int j = 0; j < taille; j++) {
-                carreaux[i][j].allumer();
+                cases[i][j].allumer();
             }
         }
     }
@@ -72,25 +72,25 @@ public class Plateau extends GridPane {
     }
 
     private void creerBindings() {
-        aGagné.bind(nombreCarreauEteint.isEqualTo(taille * taille));
+        aGagné.bind(nombreDeCasesEteintes.isEqualTo(taille * taille));
         for (int i = 0; i < taille; i++) {
             for (int j = 0; j < taille; j++) {
-                carreaux[i][j].estAlluméProperty().addListener((observableValue, oldValue, newValue) -> {
+                cases[i][j].estAlluméProperty().addListener((observableValue, oldValue, newValue) -> {
                     if (newValue)
-                        nombreCarreauEteint.set(nombreCarreauEteint.get() - 1);
+                        nombreDeCasesEteintes.set(nombreDeCasesEteintes.get() - 1);
                     else
-                        nombreCarreauEteint.set(nombreCarreauEteint.get() + 1);
+                        nombreDeCasesEteintes.set(nombreDeCasesEteintes.get() + 1);
                 });
             }
         }
     }
 
-    private void permuterVoisin(Carreau carreauChoisi) {
+    private void permuterVoisin(Case caseChoisi) {
         for (Point2D direction : directions) {
-            int indiceLigne = (int) (carreauChoisi.getPosition().getY() + direction.getY());
-            int indiceColonne = (int) (carreauChoisi.getPosition().getX() + direction.getX());
+            int indiceLigne = (int) (caseChoisi.getPosition().getY() + direction.getY());
+            int indiceColonne = (int) (caseChoisi.getPosition().getX() + direction.getX());
             if (estIndicesValides(indiceLigne, indiceColonne))
-                carreaux[indiceColonne][indiceLigne].permuter();
+                cases[indiceColonne][indiceLigne].permuter();
         }
     }
 
@@ -110,15 +110,11 @@ public class Plateau extends GridPane {
         return nombreDeCoupsJoués;
     }
 
-    public boolean aGagné() {
-        return aGagné.get();
-    }
-
     public BooleanProperty aGagnéProperty() {
         return aGagné;
     }
 
-    public IntegerProperty nombreCarreauEteintProperty() {
-        return nombreCarreauEteint;
+    public IntegerProperty nombreDeCasesEteintesProperty() {
+        return nombreDeCasesEteintes;
     }
 }
