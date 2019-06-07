@@ -190,15 +190,15 @@ Le plateau de jeu disposera de 25 **cases**. Par commodité, chaque case conserv
 
 4. Écrire la méthode `void eteindre()` qui modifie la propriété `estAllumé` comme son nom l'indique  et change la couleur de fond du bouton en noir.
 
-5. Écrire la méthode `public void permuter()` qui allume la case si elle est eteinte et inversement.
+5. Écrire la méthode `public void permuter()` qui allume la case si elle est éteinte et inversement.
 
 6. Écrire la méthode `public boolean estBienPlace()` qui indique si la position courante de la case est la même que sa position attendue en fin de partie.
 
 7. Écrire le constructeur public `Case(int x, int y)` qui : 
-    - Assigne les données membres aux paramètres donnés correspondants, sachant que la `position` devra être crée avec les deux paramètres.
+    - Assigne les données membres aux paramètres donnés correspondants, sachant que la `position` devra être créée avec les deux paramètres.
     - Fixe la largeur et la hauteur du `Case` à `CELL_SIZE`, soit la taille d'une cellule. Aide : utilisez les méthodes `setMinSize()`, `setMaxSize()` et `setPrefSize()` qu'une `Case` hérite de `Button`.
     - Allume la case.
-    - Fixe un espace vertical et horizontal de 3 pixel.
+    - Fixe un espace vertical et horizontal de 3 pixels.
 
 
 ### Exercice 2 - Implémentation de la classe `Plateau`
@@ -214,7 +214,7 @@ qui permute les voisins d'une case donnée en paramètre.
      - `aGagné` est une propriété booléenne qui permet de savoir si le dernier coup était gagnant.
      - `caseListener` est un écouteur de case du type `EventHandler<ActionEvent>`.
 
-2. Écrire la déclaration de `caseListener` sous forme d'une expression lambda. L'écouteur devra d'abord récupérer la case qui a déclenché l’évènement (pensez à `event.getSource()`); Le nombre de coups joués devra être incrémenté; La case actionnée ainsi que ses voisins devront être permutées. 
+2. Écrire la déclaration de `caseListener` sous forme d'une expression lambda. L'écouteur devra d'abord récupérer la case qui a déclenché l’évènement (pensez à `event.getSource()`) ; Le nombre de coups joués devra être incrémenté ; La case actionnée ainsi que ses voisins devront être permutées. 
      
 2. Écrire le constructeur `Plateau()` qui initialise toute les données membres. Les méthodes `creerBindings()`, `remplir()` et `nouvellePartie()` seront appelées.
 
