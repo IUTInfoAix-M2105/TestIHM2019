@@ -21,7 +21,7 @@ L'objectif de ce test est d'évaluer votre capacité à écrire une IHM à l'aid
 L'application définit plusieurs types d'objets :
 - Un objet `LightsOutMain` est une application JavaFX permettant de jouer.
 - Un objet `LightOutView` est la racine de la scène de jeu (l'intérieur de la fenêtre de l'image).
-- Un objet `LightOutControleur` est la classe controleur de l'IHM décrite par `LightOutView`.
+- Un objet `LightOutControleur` est la classe contrôleur de l'IHM décrite par `LightOutView`.
 - Un objet `Plateau` est le plateau de jeu composé des 25 cases, que l'on voit au centre du `LightOutView`
 - Un objet `Case` représente une case.
 - Un objet `StatusBar` est la barre en bas du `LightOutIHM` qui affiche le score et l'état de la partie.
@@ -175,7 +175,7 @@ La description du composant graphique `StatusBar` est donnée dans le fichier `S
         <Label fx:id="labelpartieTerminee"/>
     </right>
 </fx:root>
-``` 
+```
 
 ### Exercice 1 - Implémentation de la classe `Case`
 
@@ -190,15 +190,15 @@ Le plateau de jeu disposera de 25 **cases**. Par commodité, chaque case conserv
 
 4. Écrire la méthode `void eteindre()` qui modifie la propriété `estAllumé` comme son nom l'indique  et change la couleur de fond du bouton en noir.
 
-5. Écrire la méthode `public void permuter()` qui allume la case si elle est eteinte et inversement.
+5. Écrire la méthode `public void permuter()` qui allume la case si elle est éteinte et inversement.
 
 6. Écrire la méthode `public boolean estBienPlace()` qui indique si la position courante de la case est la même que sa position attendue en fin de partie.
 
 7. Écrire le constructeur public `Case(int x, int y)` qui : 
-    - Assigne les données membres aux paramètres donnés correspondants, sachant que la `position` devra être crée avec les deux paramètres.
+    - Assigne les données membres aux paramètres donnés correspondants, sachant que la `position` devra être créée avec les deux paramètres.
     - Fixe la largeur et la hauteur du `Case` à `CELL_SIZE`, soit la taille d'une cellule. Aide : utilisez les méthodes `setMinSize()`, `setMaxSize()` et `setPrefSize()` qu'une `Case` hérite de `Button`.
     - Allume la case.
-    - Fixe un espace vertical et horizontal de 3 pixel.
+    - Fixe un espace vertical et horizontal de 3 pixels.
 
 
 ### Exercice 2 - Implémentation de la classe `Plateau`
@@ -212,17 +212,17 @@ qui permute les voisins d'une case donnée en paramètre.
      - `nombreDeCoupsJoués` de type `IntegerProperty` qui mémorise le nombre de coups joué depuis le début de la partie (la valeur de cette propriété est aussi l'indice de la rangée actuellement jouée).
      - `nombreDeCasesEteintes` de type `IntegerProperty` qui mémorise le nombre de cases actuellement éteintes sur le plateau.
      - `aGagné` est une propriété booléenne qui permet de savoir si le dernier coup était gagnant.
-     - `caseListener` est un écouteur de case du type `EventHandler<ActionEvent>`.  
+     - `caseListener` est un écouteur de case du type `EventHandler<ActionEvent>`.
 
-2. Écrire la déclaration de `caseListener` sous forme d'une expression lambda. L'écouteur devra d'abord récupérer la case qui a déclenché l'événement (pensez à `event.getSource()`); Le nombre de coups joués devra être incrémenté; La case actionnée ainsi que ses voisins devront être permutées. 
+2. Écrire la déclaration de `caseListener` sous forme d'une expression lambda. L'écouteur devra d'abord récupérer la case qui a déclenché l’évènement (pensez à `event.getSource()`) ; Le nombre de coups joués devra être incrémenté ; La case actionnée ainsi que ses voisins devront être permutées. 
      
 2. Écrire le constructeur `Plateau()` qui initialise toute les données membres. Les méthodes `creerBindings()`, `remplir()` et `nouvellePartie()` seront appelées.
 
 4. Écrire la méthode `private void toutAllumer()` qui allume chacune des cases du plateau.
 5. Écrire la méthode `public int getNombreDeCoupsJoués()` qui retourne le nombre de coups joués depuis le début de la partie.
-3. Écrire la méthode `private void remplir()` qui parcourt tout le plateau pour remplir chanque case du plateau avec une nouvelle instance de `Case`, ajoute `caseListener` comme écouteur d'action et l'ajoute au bon endroit avec la méthode `add()` hérité de `GridPane`.
+3. Écrire la méthode `private void remplir()` qui parcourt tout le plateau pour remplir chaque case du plateau avec une nouvelle instance de `Case`, ajoute `caseListener` comme écouteur d'action et l'ajoute au bon endroit avec la méthode `add()` hérité de `GridPane`.
 6. Écrire la méthode `public creerBindings()` qui s'occupe de correctement lier les propriétés `aGagné` et `nombreDeCaseEteintes`. La première sera vraie si le nombre de cases éteintes est égal au nombre total de case. Quant à la seconde, sa valeur évoluera en fonction du changement d'état des cases. Sur chacune des cases de `cases`, ajouter un écouteur de changement sur la propriété `estAllumé` pour incrémenter ou décrémenter `nombreDeCasesEteintes` comme il se doit.
-7. Écrire la méthode `public void nouvellePartie()` qui réinitialise le plateau de jeu en réallumant chacun des boutons et en remettant à zéro le nombre de coups joués.
+7. Écrire la méthode `public void nouvellePartie()` qui réinitialise le plateau de jeu en rallumant chacun des boutons et en remettant à zéro le nombre de coups joués.
 
 Même s'ils n'ont pas été écrit, vous supposerez dans la suite que vous disposez des accesseurs des différences propriétés de cette classe.
 
@@ -230,15 +230,15 @@ Même s'ils n'ont pas été écrit, vous supposerez dans la suite que vous dispo
 
 Le fichier `LightsOutView.fxml` est la description de la fenêtre principale du Jeu. En plus du plateau situé au centre, cette fenêtre contient une barre de menu située en haut, la partie basse de la vue contiendra la barre de statut. La barre de menu contient un menu "Jeu" constitué d'une entrée "Nouvelle Partie" et d'une entrée "Quitter".
 
-1. Écrire le contenu de `LightsOutView.fxml` en n'oubliant pas d’associer les actions adéquates aux items du menu (`actionMenuJeuNouveau()` et `actionMenuJeuQuitter()`). Penser à valoriser l'attribut `fx:id` pour être en mesure de récupérer la `StatusBar` et le `Plateau` dans le controleur.
-2. Écrire la déclaration de la classe `LightsOutControleur` qui sera le controleur associé à la vue précédente. Cette classe disposera d'une donnée membre pour la barre de status et pour le plateau. Ne pas oublier les annotations pour que la mise en correspondance vue/controleur puisse avoir lieu.
-3. Écrire la méthode `public void initialize(URL location, ResourceBundle resources)` appellée juste après l'initialisation de la vue. Cette méthode doit lancer une nouvelle partie et appeler `creerBindings()`.
-4. Écrire la méthode `private void creerBindings()` qui devra ajouteur un écouteur de changement sur la propriété `aGagné` du plateau pour afficher le dialogue de fin de partie quand cette dernière devient vrai. Soumetre le nombre de coups joués de la bare de status à celle correspondante pour le plateau.
-5. Écrire la méthode `void actionMenuJeuNouveau()` qui relance une nouvelle partie sur le plateau et la barre de status.
+1. Écrire le contenu de `LightsOutView.fxml` en n'oubliant pas d’associer les actions adéquates aux items du menu (`actionMenuJeuNouveau()` et `actionMenuJeuQuitter()`). Penser à valoriser l'attribut `fx:id` pour être en mesure de récupérer la `StatusBar` et le `Plateau` dans le contrôleur.
+2. Écrire la déclaration de la classe `LightsOutControleur` qui sera le contrôleur associé à la vue précédente. Cette classe disposera d'une donnée membre pour la barre de statut et pour le plateau. Ne pas oublier les annotations pour que la mise en correspondance vue/contrôleur puisse avoir lieu.
+3. Écrire la méthode `public void initialize(URL location, ResourceBundle resources)` appelée juste après l'initialisation de la vue. Cette méthode doit lancer une nouvelle partie et appeler `creerBindings()`.
+4. Écrire la méthode `private void creerBindings()` qui devra ajouter un écouteur de changement sur la propriété `aGagné` du plateau pour afficher le dialogue de fin de partie quand cette dernière devient vrai. Soumettre le nombre de coups joués de la barre de statut à celle correspondante pour le plateau.
+5. Écrire la méthode `void actionMenuJeuNouveau()` qui relance une nouvelle partie sur le plateau et la barre de statut.
 6. Écrire la méthode `void actionMenuJeuQuitter()` qui crée une alerte de type `CONFIRMATION` pour demander la confirmation avant de sortir correctement de l'application.
 7. Écrire la méthode `void afficherDialogFinDePartie()` qui affiche une alerte de type `INFORMATION` pour dire au joueur en combien de coup il a terminé la partie. Pour cela, vous utiliserez la classe `Alert` avec un titre et un contenu adapté. Le dialogue sera affiché et attendra que l'utilisateur le ferme.
 
-### Exercice 4 - Implémentation de la classe `OthelloMain`
+### Exercice 4 - Implémentation de la classe `LightsOutMain`
 La classe `LightsOutMain` est le programme principal de notre application. C'est elle qui a la responsabilité de charger la vue principale et de l'ajouter à la scène.
 
 1. Écrivez une méthode `main` aussi réduite que possible pour lancer l’exécution de tout cela.
@@ -251,7 +251,7 @@ La classe `LightsOutMain` est le programme principal de notre application. C'est
     
     - Récupérer le contrôleur du type `LightsOutController` avec la méthode `getController()` du `loader`.
     
-    - Appeler la méthode `setStageAndSetupListeners()` de la classe `LightsOutController` qui rajoutera l'écouteur d'événement de fermeture de la fenêtre principale.
+    - Appeler la méthode `setStageAndSetupListeners()` de la classe `LightsOutController` qui rajoutera l'écouteur d’évènement de fermeture de la fenêtre principale.
 
     - Ajouter le `BorderPane` comme racine du graphe de scène.
 
