@@ -186,23 +186,25 @@ qui permute les voisins d'une case donnée en paramètre.
 
 1. Écrire la classe `Plateau` qui dérive de `GridPane`. Cette classe aura les données membres privées suivantes :
      - `taille` de type `int` qui mémorise la taille du plateau de jeu.
-     - `cases` est une matrice de `taille x taille` `Case` qui représente le plateau de jeu.
-     - `nombreDeCoupsJoués` de type `IntegerProperty` qui mémorise le nombre de coups joué depuis le début de la partie (la valeur de cette propriété est aussi l'indice de la rangée actuellement jouée).
+     - `cases` est une matrice de `taille x taille` objets de type `Case` qui représente le plateau de jeu.
+     - `nombreDeCoupsJoués` de type `IntegerProperty` qui mémorise le nombre de coups joués depuis le début de la partie.
      - `nombreDeCasesEteintes` de type `IntegerProperty` qui mémorise le nombre de cases actuellement éteintes sur le plateau.
      - `aGagné` est une propriété booléenne qui permet de savoir si le dernier coup était gagnant.
      - `caseListener` est un écouteur de case du type `EventHandler<ActionEvent>`.
 
-2. Écrire la déclaration de `caseListener` sous forme d'une expression lambda. L'écouteur devra d'abord récupérer la case qui a déclenché l’évènement (pensez à `event.getSource()`) ; Le nombre de coups joués devra être incrémenté ; La case actionnée ainsi que ses voisins devront être permutées. 
+2. Écrire la déclaration de `caseListener` sous forme d'une expression lambda. Cet écouteur doit gérer le clic sur une `Case`, ce qui consiste à incrémenter le nombre de coups joués puis récupérer la case qui a déclenché l’événement (pensez à `event.getSource()`) pour la permuter ainsi que toutes ses voisines. 
      
-2. Écrire le constructeur `Plateau()` qui initialise toute les données membres. Les méthodes `creerBindings()`, `remplir()` et `nouvellePartie()` seront appelées.
+2. Écrire le constructeur `Plateau()` qui initialise toutes les données membres et appelle les méthodes `creerBindings()`, `remplir()` et `nouvellePartie()`.
 
-4. Écrire la méthode `private void toutAllumer()` qui allume chacune des cases du plateau.
+4. Écrire la méthode `private void toutAllumer()` qui allume toutes les cases du plateau.
 5. Écrire la méthode `public int getNombreDeCoupsJoués()` qui retourne le nombre de coups joués depuis le début de la partie.
-3. Écrire la méthode `private void remplir()` qui parcourt tout le plateau pour remplir chaque case du plateau avec une nouvelle instance de `Case`, ajoute `caseListener` comme écouteur d'action et l'ajoute au bon endroit avec la méthode `add()` hérité de `GridPane`.
-6. Écrire la méthode `public creerBindings()` qui s'occupe de correctement lier les propriétés `aGagné` et `nombreDeCaseEteintes`. La première sera vraie si le nombre de cases éteintes est égal au nombre total de case. Quant à la seconde, sa valeur évoluera en fonction du changement d'état des cases. Sur chacune des cases de `cases`, ajouter un écouteur de changement sur la propriété `estAllumé` pour incrémenter ou décrémenter `nombreDeCasesEteintes` comme il se doit.
-7. Écrire la méthode `public void nouvellePartie()` qui réinitialise le plateau de jeu en rallumant chacun des boutons et en remettant à zéro le nombre de coups joués.
+3. Écrire la méthode `private void remplir()` qui remplit le plateau en y créant toutes les cases. Chaque case du plateau doit être créée avec une nouvelle instance de `Case`, doit avoir `caseListener` comme écouteur d'action et doit être placée au bon endroit du plateau avec la méthode `add()` qu'il hérite de `GridPane`.
+6. Écrire la méthode `public creerBindings()` qui s'occupe de correctement lier les propriétés `aGagné` et `nombreDeCaseEteintes`. La première sera vraie si le nombre de cases éteintes est égal au nombre total de cases. Quant à la seconde, sa valeur évoluera en fonction du changement d'état des cases. Sur chacune des cases de `cases`, ajouter un écouteur de changement sur la propriété `estAllumé` pour incrémenter ou décrémenter `nombreDeCasesEteintes` comme il se doit.
+7. Écrire la méthode `public void nouvellePartie()` qui réinitialise le plateau de jeu en allumant toutes ses cases et en remettant à zéro le nombre de coups joués.
 
-Même s'ils n'ont pas été écrit, vous supposerez dans la suite que vous disposez des accesseurs des différences propriétés de cette classe.
+Même s'ils n'ont pas été écrits, vous supposerez dans la suite que vous disposez des accesseurs suivants pour différentes propriétés de cette classe :
++ pour `nombreDeCoupsJoués` : `nombreDeCoupsJouésProperty()` et `getNombreDeCoupsJoués()`
++ pour `aGagné` : `aGagnéProperty()`
 
 ### Exercice 3 - Implémentation de l'IHM
 
