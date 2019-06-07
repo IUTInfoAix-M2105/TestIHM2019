@@ -30,7 +30,7 @@ public class Plateau extends GridPane {
     };
 
     public Plateau() {
-        this(3);
+        this(5);
     }
 
     public Plateau(int taille) {
