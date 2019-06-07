@@ -36,14 +36,14 @@ public class Case extends Button {
 
     public void allumer() {
         estAllumé.set(true);
-        setStyle("    -fx-background-color:\n" +
-                "            linear-gradient(#f0ff35,#a9ff00),\n" +
-                "            radial-gradient(center 50% -40%, radius 220%, #b8ee36 45%, #80c800 50%);\n" +
-                "    -fx-background-radius: 6,5;\n" +
-                "    -fx-background-insets: 0,1;\n" +
-                "\n" +
-                "    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 5, 0.0, 0, 1);\n" +
-                "   -fx-text-fill: #395306;");
+        setStyle("-fx-background-color: #000000, " +
+                "linear-gradient(#7ffc1a, #2f7b1f), " +
+                "linear-gradient(#42fa17, #267e15), " +
+                "linear-gradient(#39fc1b, #227728);\n" +
+                "-fx-background-insets: 0,1,2,3;\n" +
+                "-fx-background-radius: 3,2,2,2;\n" +
+                "-fx-padding: 12 30 12 30;\n" +
+                "-fx-text-fill: white;\n");
     }
 
     public void eteindre() {
