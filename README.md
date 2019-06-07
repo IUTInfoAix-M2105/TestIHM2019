@@ -12,9 +12,9 @@ Le jeu consiste en une grille de lumières de 5 sur 5. Lorsque le jeu commence, 
 
 ### Travail à réaliser
 
-L'IHM que vous allez en partie réaliser ressemblera à la fenêtre suivante :
+L'IHM que vous allez en partie réaliser ressemblera aux fenêtres suivantes :
 
-![IHM](src/main/resources/assets/lightsout_screenshot.png)
+![](src/main/resources/assets/lightsout_screenshot-1.png) `    ` ![](src/main/resources/assets/lightsout_screenshot-2.png) `    ` ![](src/main/resources/assets/lightsout_screenshot-3.png)
 
 L'objectif de ce test est d'évaluer votre capacité à écrire une IHM à l'aide du langage Java, les méthodes complexes car trop algorithmiques n'auront pas à être implémentées. Vous pourrez retrouver une proposition de correction à l'adresse suivante : https://github.com/IUTInfoAix-m2105/TestIHM2019/
 
