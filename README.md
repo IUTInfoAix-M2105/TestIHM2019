@@ -208,15 +208,26 @@ Même s'ils n'ont pas été écrits, vous supposerez dans la suite que vous disp
 
 ### Exercice 3 - Implémentation de l'IHM
 
-Le fichier `LightsOutView.fxml` est la description de la fenêtre principale du Jeu. En plus du plateau situé au centre, cette fenêtre contient une barre de menu située en haut, la partie basse de la vue contiendra la barre de statut. La barre de menu contient un menu "Jeu" constitué d'une entrée "Nouvelle Partie" et d'une entrée "Quitter".
+Outre le composant graphique `StatusBar` et son fichier FXML associé `StatusBArView.fxml` présentés en début de sujet, l'IHM se compose d'un fichier FXML et d'une classe contrôleur pour ce fichier.
+
+##### Exercice 3.A - FXML de la fenêtre principale
+
+Le fichier `LightsOutView.fxml` est la description de la fenêtre principale du Jeu. 
+En plus du plateau situé **au centre**, cette fenêtre contient une barre de menu située **en haut**, et **en bas** la barre de statut. 
+La barre de menu contient un menu "Jeu" constitué d'une entrée "Nouvelle Partie" et d'une entrée "Quitter".
 
 1. Écrire le contenu de `LightsOutView.fxml` en n'oubliant pas d’associer les actions adéquates aux items du menu (`actionMenuJeuNouveau()` et `actionMenuJeuQuitter()`). Penser à valoriser l'attribut `fx:id` pour être en mesure de récupérer la `StatusBar` et le `Plateau` dans le contrôleur.
-2. Écrire la déclaration de la classe `LightsOutControleur` qui sera le contrôleur associé à la vue précédente. Cette classe disposera d'une donnée membre pour la barre de statut et pour le plateau. Ne pas oublier les annotations pour que la mise en correspondance vue/contrôleur puisse avoir lieu.
-3. Écrire la méthode `public void initialize(URL location, ResourceBundle resources)` appelée juste après l'initialisation de la vue. Cette méthode doit lancer une nouvelle partie et appeler `creerBindings()`.
-4. Écrire la méthode `private void creerBindings()` qui devra ajouter un écouteur de changement sur la propriété `aGagné` du plateau pour afficher le dialogue de fin de partie quand cette dernière devient vrai. Soumettre le nombre de coups joués de la barre de statut à celle correspondante pour le plateau.
-5. Écrire la méthode `void actionMenuJeuNouveau()` qui relance une nouvelle partie sur le plateau et la barre de statut.
-6. Écrire la méthode `void actionMenuJeuQuitter()` qui crée une alerte de type `CONFIRMATION` pour demander la confirmation avant de sortir correctement de l'application.
-7. Écrire la méthode `void afficherDialogFinDePartie()` qui affiche une alerte de type `INFORMATION` pour dire au joueur en combien de coup il a terminé la partie. Pour cela, vous utiliserez la classe `Alert` avec un titre et un contenu adapté. Le dialogue sera affiché et attendra que l'utilisateur le ferme.
+
+##### Exercice 3.B - Contrôleur de la fenêtre principale
+
+La classe `LightsOutControleur` est chargée de contrôler la vue décrite par le fichier FXML :
+
+1. Écrire la déclaration de la classe `LightsOutControleur`. Cette classe disposera d'une donnée membre pour la barre de statut et pour le plateau. Ne pas oublier les annotations pour que la mise en correspondance vue/contrôleur puisse avoir lieu.
+2. Écrire la méthode `public void initialize(URL location, ResourceBundle resources)` appelée juste après l'initialisation de la vue. Cette méthode doit lancer une nouvelle partie et appeler la méthode `creerBindings()` ci-dessous.
+3. Écrire la méthode `private void creerBindings()` qui devra ajouter un écouteur de changement sur la propriété `aGagné` du plateau pour afficher le dialogue de fin de partie quand cette dernière devient vraie. Soumettre la propriété du nombre de coups joués de la barre de statut à celle correspondante pour le plateau.
+4. Écrire la méthode `void actionMenuJeuNouveau()` qui relance une nouvelle partie sur le plateau et la barre de statut.
+5. Écrire la méthode `void actionMenuJeuQuitter()` qui crée une alerte de type `CONFIRMATION` pour demander la confirmation avant de sortir correctement de l'application.
+6. Écrire la méthode `void afficherDialogFinDePartie()` qui affiche une alerte de type `INFORMATION` pour dire au joueur en combien de coups il a terminé la partie. Pour cela, vous utiliserez la classe `Alert` avec un titre et un contenu adapté. Le dialogue sera affiché et attendra que l'utilisateur le ferme.
 
 ### Exercice 4 - Implémentation de la classe `LightsOutMain`
 La classe `LightsOutMain` est le programme principal de notre application. C'est elle qui a la responsabilité de charger la vue principale et de l'ajouter à la scène.
