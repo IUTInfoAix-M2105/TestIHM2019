@@ -31,11 +31,11 @@ Le diagramme UML suivant donne un aperçu synthétique de la structure des class
 
 ![UML](src/main/resources/diagram.png)
 
-Votre travail dans la suite de ce sujet sera d'écrire pas à pas plusieurs des classes ci-dessus. Le code des classes `StatusBar` et `Position` vous est donné à titre d'information ci-dessous, pour que vous puissiez vous y référer si besoin au cours des exercices. 
+Votre travail dans la suite de ce sujet sera d'écrire pas à pas plusieurs des classes ci-dessus. Le code des classes `Position` et `StatusBar` vous est donné à titre d'information ci-dessous, pour que vous puissiez vous y référer si besoin au cours des exercices. 
 
 ### La classe `Position`
 
-Cette classe permet d'enregistrer la position d'une `Case` sur le plateau de jeu. Son implémentation vous est donnée ci-dessous à titre d'information :
+Cette classe permet d'enregistrer la position d'une `Case` sur le plateau de jeu. Son implémentation, très simple, vous est donnée ci-dessous à titre d'information :
 
 ```java
 public class Position {
@@ -56,27 +56,6 @@ public class Position {
         return y;
     }
 
-    @Override
-    public String toString() {
-        return "Position{" + "x=" + x + ", y=" + y + '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Position location = (Position) o;
-
-        return x == location.x && y == location.y;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = x;
-        result = 31 * result + y;
-        return result;
-    }
 }
 ```
 
