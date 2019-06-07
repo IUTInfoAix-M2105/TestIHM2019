@@ -31,11 +31,11 @@ Le diagramme UML suivant donne un aperçu synthétique de la structure des class
 
 ![UML](src/main/resources/diagram.png)
 
-Votre travail dans la suite de ce sujet sera d'écrire pas à pas plusieurs des classes ci-dessus. Le code des classes `StatusBar` et `Position` vous est donné à titre d'information ci-dessous, pour que vous puissiez vous y référer si besoin au cours des exercices. 
+Votre travail dans la suite de ce sujet sera d'écrire pas à pas plusieurs des classes ci-dessus. Le code des classes `Position` et `StatusBar` vous est donné à titre d'information ci-dessous, pour que vous puissiez vous y référer si besoin au cours des exercices. 
 
 ### La classe `Position`
 
-Cette classe permet d'enregistrer la position d'une `Case` sur le plateau de jeu. Son implémentation vous est donnée ci-dessous à titre d'information :
+Cette classe permet d'enregistrer la position d'une `Case` sur le plateau de jeu. Son implémentation, très simple, vous est donnée ci-dessous à titre d'information :
 
 ```java
 public class Position {
@@ -56,32 +56,12 @@ public class Position {
         return y;
     }
 
-    @Override
-    public String toString() {
-        return "Position{" + "x=" + x + ", y=" + y + '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Position location = (Position) o;
-
-        return x == location.x && y == location.y;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = x;
-        result = 31 * result + y;
-        return result;
-    }
 }
 ```
 
 ### La classe `StatusBar`
-La classe `StatusBar` est un composant graphique permettant d'afficher l'état de la partie en cours. L'implémentation de cette classe vous est donnée ci-dessous (où la gestion et l'affichage de la durée ont été omis pour ne pas surcharger le texte):
+La classe `StatusBar` est un composant graphique permettant d'afficher l'état de la partie en cours. 
+L'implémentation de cette classe vous est donnée ci-dessous (où la gestion et l'affichage de la durée ont été omis pour ne pas surcharger le texte):
 
 ```java 
 public class StatusBar extends BorderPane implements Initializable {
@@ -192,9 +172,7 @@ Le plateau de jeu disposera de 25 **cases**. Par commodité, chaque case conserv
 
 5. Écrire la méthode `public void permuter()` qui allume la case si elle est éteinte et inversement.
 
-6. Écrire la méthode `public boolean estBienPlace()` qui indique si la position courante de la case est la même que sa position attendue en fin de partie.
-
-7. Écrire le constructeur public `Case(int x, int y)` qui : 
+6. Écrire le constructeur public `Case(int x, int y)` qui : 
     - Assigne les données membres aux paramètres donnés correspondants, sachant que la `position` devra être créée avec les deux paramètres.
     - Fixe la largeur et la hauteur du `Case` à `CELL_SIZE`, soit la taille d'une cellule. Aide : utilisez les méthodes `setMinSize()`, `setMaxSize()` et `setPrefSize()` qu'une `Case` hérite de `Button`.
     - Allume la case.
