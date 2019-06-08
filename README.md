@@ -1,24 +1,23 @@
-# <img src="https://raw.githubusercontent.com/IUTInfoAix-M2105/Syllabus/master/assets/logo.png" alt="class logo" class="logo"/> Module 2105 : Introduction aux IHM en Java 
+## Test d'IHM et langage Java
 
-## Test d'IHM et langage Java [![Build Status](https://travis-ci.com/IUTInfoAix-M2105/TestIHM2019.svg?token=zPXgu159amQhEb4ShTxW&branch=master)](https://travis-ci.com/IUTInfoAix-M2105/TestIHM2019)
+### Test du samedi 8 juin 2019 – Durée 2 heures – Documents autorisés
 
-**Test du samedi 8 juin 2019 – Durée 2 heures – Documents autorisés**
+L'objectif de cet exercice est la programmation d'une version JavaFx du jeu **Lights Out**. Lights Out est un jeu électronique publié par Tiger Electronics en 1995.
 
-L'objectif de cet exercice est la programmation d'une version JavaFx du jeu **Lights Out**. Lights Out est un jeu électronique publié par Tiger Electronics en 1995. 
+![Illustration](src/main/resources/assets/lightsout_illustration.png)
 
 Le jeu consiste en une grille de lumières de 5 sur 5. Lorsque le jeu commence, un nombre aléatoire ou un ensemble mémorisé de ces lumières est activé. En appuyant sur l'une des lumières, vous basculerez sur celle-ci et sur les lumières adjacentes. Le but du puzzle est d’éteindre toutes les lumières, de préférence en appuyant le moins possible sur les boutons.
 
-![](src/main/resources/assets/lightsout_illustration.png)
+L'IHM que vous allez en partie réaliser ressemblera aux fenêtres suivantes :
+
+![lightsout_screenshot](src/main/resources/assets/lightsout_screenshot.png)
 
 ### Travail à réaliser
 
-L'IHM que vous allez en partie réaliser ressemblera aux fenêtres suivantes :
-
-![](src/main/resources/assets/lightsout_screenshot-1.png) `    ` ![](src/main/resources/assets/lightsout_screenshot-2.png) `    ` ![](src/main/resources/assets/lightsout_screenshot-3.png)
-
-L'objectif de ce test est d'évaluer votre capacité à écrire une IHM à l'aide du langage Java, les méthodes complexes car trop algorithmiques n'auront pas à être implémentées. Vous pourrez retrouver une proposition de correction à l'adresse suivante : https://github.com/IUTInfoAix-m2105/TestIHM2019/
+L'objectif de ce test est d'évaluer votre capacité à écrire une IHM à l'aide du langage Java, les méthodes complexes car trop algorithmiques n'auront pas à être implémentées. Vous pourrez retrouver une proposition de correction à l'adresse suivante : [https://github.com/IUTInfoAix-m2105/TestIHM2019/](https://github.com/IUTInfoAix-m2105/TestIHM2019/)
 
 L'application définit plusieurs types d'objets :
+
 - Un objet `LightsOutMain` est une application JavaFX permettant de jouer.
 - Un objet `LightOutView` est la racine de la scène de jeu (l'intérieur de la fenêtre de l'image).
 - Un objet `LightOutControleur` est la classe contrôleur de l'IHM décrite par `LightOutView`.
@@ -60,81 +59,7 @@ public class Position {
 ```
 
 ### La classe `StatusBar`
-La classe `StatusBar` est un composant graphique permettant d'afficher l'état de la partie en cours. 
-L'implémentation de cette classe vous est donnée ci-dessous (où la gestion et l'affichage de la durée ont été omis pour ne pas surcharger le texte):
-
-```java 
-public class StatusBar extends BorderPane implements Initializable {
-    @FXML
-    private Label labelNombreDeCoupsJoués;
-
-    @FXML
-    private Label labelTemps;
-
-    @FXML
-    private Label labelpartieTerminee;
-
-    private IntegerProperty nombreDeCoupsJoués;
-    private BooleanProperty estPartieTerminee;
-
-    private LocalTime time;
-    private Timeline timer;
-    private StringProperty clock;
-    private DateTimeFormatter fmt;
-
-
-    public StatusBar() {
-        nombreDeCoupsJoués = new SimpleIntegerProperty();
-        estPartieTerminee = new SimpleBooleanProperty();
-        time = LocalTime.now();
-        clock = new SimpleStringProperty("00:00:00");
-        fmt = DateTimeFormatter.ofPattern("HH:mm:ss").withZone(ZoneId.systemDefault());
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fr/univ_amu/iut/lightsout/StatusBarView.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        creerAnimation();
-        creerBindings();
-    }
-
-    private void creerAnimation() {
-        timer = new Timeline(new KeyFrame(Duration.ZERO, e -> clock.set(LocalTime.now().minusNanos(time.toNanoOfDay()).format(fmt))),
-                new KeyFrame(Duration.seconds(1)));
-        timer.setCycleCount(Animation.INDEFINITE);
-    }
-
-    private void creerBindings() {
-        labelTemps.textProperty().bind(Bindings.concat("Durée : ", clock));
-        labelNombreDeCoupsJoués.textProperty().bind(Bindings.concat("Nombres de coups : ", nombreDeCoupsJoués));
-        labelpartieTerminee.textProperty().bind(when(estPartieTerminee).then("Partie terminée !").otherwise(""));
-    }
-
-    void nouvellePartie() {
-        time = LocalTime.now();
-        timer.playFromStart();
-    }
-
-    public IntegerProperty nombreDeCoupsJouésProperty() {
-        return nombreDeCoupsJoués;
-    }
-
-    public BooleanProperty estPartieTermineeProperty() {
-        return estPartieTerminee;
-    }
-}
-```
-
-La description du composant graphique `StatusBar` est donnée dans le fichier `StatusBarView.fxml` :
+La classe `StatusBar` est un composant graphique permettant d'afficher l'état de la partie en cours. La description FXML du composant graphique `StatusBar` est donnée dans le fichier `StatusBarView.fxml` :
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -157,10 +82,65 @@ La description du composant graphique `StatusBar` est donnée dans le fichier `S
 </fx:root>
 ```
 
+L'implémentation de cette classe vous est donnée ci-dessous (où la gestion et l'affichage de la durée ont été omis pour ne pas surcharger le texte):
+
+```java 
+public class StatusBar extends BorderPane implements Initializable {
+    @FXML
+    private Label labelNombreDeCoupsJoués;
+    @FXML
+    private Label labelTemps;
+    @FXML
+    private Label labelpartieTerminee;
+    private IntegerProperty nombreDeCoupsJoués;
+    private BooleanProperty estPartieTerminee;
+
+    public StatusBar() {
+        nombreDeCoupsJoués = new SimpleIntegerProperty();
+        estPartieTerminee = new SimpleBooleanProperty();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass()
+            .getResource("/fr/univ_amu/iut/lightsout/StatusBarView.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        creerBindings();
+    }
+
+    private void creerBindings() {
+        labelTemps.textProperty().bind(Bindings.concat("Durée : ", clock));
+        labelNombreDeCoupsJoués.textProperty()
+          .bind(concat("Nombres de coups : ", nombreDeCoupsJoués));
+        labelpartieTerminee.textProperty().bind(
+            when(estPartieTerminee)
+             .then("Partie terminée !")
+             .otherwise(""));
+    }
+
+    public IntegerProperty nombreDeCoupsJouésProperty() {
+        return nombreDeCoupsJoués;
+    }
+
+    public BooleanProperty estPartieTermineeProperty() {
+        return estPartieTerminee;
+    }
+}
+```
+
 ### Exercice 1 - Implémentation de la classe `Case`
 
 Le plateau de jeu disposera de 25 **cases**. Par commodité, chaque case conserve la position qu'elle occupe sur le plateau.
+
 1. Écrire la déclaration d'une classe publique `Case`, sous-classe de (étendant) `Button`, réduite pour le moment à la déclaration des variables d'instance suivantes, toutes privées (cf. diagramme UML) :
+
      - `position` de type `Position`, la position dans le plateau.
      - `estAllumé` une propriété booléenne qui permet de savoir si la case courante est allumée.
 
@@ -173,6 +153,7 @@ Le plateau de jeu disposera de 25 **cases**. Par commodité, chaque case conserv
 5. Écrire la méthode `public void permuter()` qui allume la case si elle est éteinte et inversement.
 
 6. Écrire le constructeur public `Case(int x, int y)` qui : 
+
     - Assigne les données membres aux paramètres donnés correspondants, sachant que la `position` devra être créée avec les deux paramètres.
     - Fixe la largeur et la hauteur du `Case` à `CELL_SIZE`, soit la taille d'une cellule. Aide : utilisez les méthodes `setMinSize()`, `setMaxSize()` et `setPrefSize()` qu'une `Case` hérite de `Button`.
     - Allume la case.
@@ -185,6 +166,7 @@ Cette classe est celle qui permet d'implémenter toute la logique du jeu. Elle e
 qui permute les voisins d'une case donnée en paramètre.
 
 1. Écrire la classe `Plateau` qui dérive de `GridPane`. Cette classe aura les données membres privées suivantes :
+
      - `taille` de type `int` qui mémorise la taille du plateau de jeu.
      - `cases` est une matrice de `taille x taille` objets de type `Case` qui représente le plateau de jeu.
      - `nombreDeCoupsJoués` de type `IntegerProperty` qui mémorise le nombre de coups joués depuis le début de la partie.
@@ -192,25 +174,25 @@ qui permute les voisins d'une case donnée en paramètre.
      - `aGagné` est une propriété booléenne qui permet de savoir si le dernier coup était gagnant.
      - `caseListener` est un écouteur de case du type `EventHandler<ActionEvent>`.
 
-2. Écrire la déclaration de `caseListener` sous forme d'une expression lambda. Cet écouteur doit gérer le clic sur une `Case`, ce qui consiste à incrémenter le nombre de coups joués puis récupérer la case qui a déclenché l’événement (pensez à `event.getSource()`) pour la permuter ainsi que toutes ses voisines. 
-     
-2. Écrire le constructeur `Plateau()` qui initialise toutes les données membres et appelle les méthodes `creerBindings()`, `remplir()` et `nouvellePartie()`.
+2. Écrire la déclaration de `caseListener` sous forme d'une expression lambda. Cet écouteur doit gérer le clic sur une `Case`, ce qui consiste à incrémenter le nombre de coups joués puis récupérer la case qui a déclenché l’événement (pensez à `event.getSource()`) pour la permuter ainsi que toutes ses voisines.
+3. Écrire le constructeur `Plateau()` qui initialise toutes les données membres et appelle les méthodes `creerBindings()`, `remplir()` et `nouvellePartie()`.
 
 4. Écrire la méthode `private void toutAllumer()` qui allume toutes les cases du plateau.
 5. Écrire la méthode `public int getNombreDeCoupsJoués()` qui retourne le nombre de coups joués depuis le début de la partie.
-3. Écrire la méthode `private void remplir()` qui remplit le plateau en y créant toutes les cases. Chaque case du plateau doit être créée avec une nouvelle instance de `Case`, doit avoir `caseListener` comme écouteur d'action et doit être placée au bon endroit du plateau avec la méthode `add()` qu'il hérite de `GridPane`.
-6. Écrire la méthode `public creerBindings()` qui s'occupe de correctement lier les propriétés `aGagné` et `nombreDeCaseEteintes`. La première sera vraie si le nombre de cases éteintes est égal au nombre total de cases. Quant à la seconde, sa valeur évoluera en fonction du changement d'état des cases. Sur chacune des cases de `cases`, ajouter un écouteur de changement sur la propriété `estAllumé` pour incrémenter ou décrémenter `nombreDeCasesEteintes` comme il se doit.
-7. Écrire la méthode `public void nouvellePartie()` qui réinitialise le plateau de jeu en allumant toutes ses cases et en remettant à zéro le nombre de coups joués.
+6. Écrire la méthode `private void remplir()` qui remplit le plateau en y créant toutes les cases. Chaque case du plateau doit être créée avec une nouvelle instance de `Case`, doit avoir `caseListener` comme écouteur d'action et doit être placée au bon endroit du plateau avec la méthode `add()` qu'il hérite de `GridPane`.
+7. Écrire la méthode `public creerBindings()` qui s'occupe de correctement lier les propriétés `aGagné` et `nombreDeCaseEteintes`. La première sera vraie si le nombre de cases éteintes est égal au nombre total de cases. Quant à la seconde, sa valeur évoluera en fonction du changement d'état des cases. Sur chacune des cases de `cases`, ajouter un écouteur de changement sur la propriété `estAllumé` pour incrémenter ou décrémenter `nombreDeCasesEteintes` comme il se doit.
+8. Écrire la méthode `public void nouvellePartie()` qui réinitialise le plateau de jeu en allumant toutes ses cases et en remettant à zéro le nombre de coups joués.
 
 Même s'ils n'ont pas été écrits, vous supposerez dans la suite que vous disposez des accesseurs suivants pour différentes propriétés de cette classe :
-+ pour `nombreDeCoupsJoués` : `nombreDeCoupsJouésProperty()` et `getNombreDeCoupsJoués()`
-+ pour `aGagné` : `aGagnéProperty()`
+
+- pour `nombreDeCoupsJoués` : `nombreDeCoupsJouésProperty()` et `getNombreDeCoupsJoués()`
+- pour `aGagné` : `aGagnéProperty()`
 
 ### Exercice 3 - Implémentation de l'IHM
 
 Outre le composant graphique `StatusBar` et son fichier FXML associé `StatusBArView.fxml` présentés en début de sujet, l'IHM se compose d'un fichier FXML et d'une classe contrôleur pour ce fichier.
 
-##### Exercice 3.A - FXML de la fenêtre principale
+#### Exercice 3.A - FXML de la fenêtre principale
 
 Le fichier `LightsOutView.fxml` est la description de la fenêtre principale du Jeu. 
 En plus du plateau situé **au centre**, cette fenêtre contient une barre de menu située **en haut**, et **en bas** la barre de statut. 
@@ -218,7 +200,7 @@ La barre de menu contient un menu "Jeu" constitué d'une entrée "Nouvelle Parti
 
 1. Écrire le contenu de `LightsOutView.fxml` en n'oubliant pas d’associer les actions adéquates aux items du menu (`actionMenuJeuNouveau()` et `actionMenuJeuQuitter()`). Penser à valoriser l'attribut `fx:id` pour être en mesure de récupérer la `StatusBar` et le `Plateau` dans le contrôleur.
 
-##### Exercice 3.B - Contrôleur de la fenêtre principale
+#### Exercice 3.B - Contrôleur de la fenêtre principale
 
 La classe `LightsOutControleur` est chargée de contrôler la vue décrite par le fichier FXML :
 
@@ -230,6 +212,7 @@ La classe `LightsOutControleur` est chargée de contrôler la vue décrite par l
 6. Écrire la méthode `void afficherDialogFinDePartie()` qui affiche une alerte de type `INFORMATION` pour dire au joueur en combien de coups il a terminé la partie. Pour cela, vous utiliserez la classe `Alert` avec un titre et un contenu adapté. Le dialogue sera affiché et attendra que l'utilisateur le ferme.
 
 ### Exercice 4 - Implémentation de la classe `LightsOutMain`
+
 La classe `LightsOutMain` est le programme principal de notre application. C'est elle qui a la responsabilité de charger la vue principale et de l'ajouter à la scène.
 
 1. Écrivez une méthode `main` aussi réduite que possible pour lancer l’exécution de tout cela.
@@ -239,9 +222,9 @@ La classe `LightsOutMain` est le programme principal de notre application. C'est
     - Modifier le titre de la fenêtre en "Lights Out".
 
     - Créer un objet `loader` du type `FXMLLoader` et charger le `BorderPane` principal à partir du fichier `LightsOutView.fxml`.
-    
+
     - Récupérer le contrôleur du type `LightsOutController` avec la méthode `getController()` du `loader`.
-    
+
     - Appeler la méthode `setStageAndSetupListeners()` de la classe `LightsOutController` qui rajoutera l'écouteur d’évènement de fermeture de la fenêtre principale.
 
     - Ajouter le `BorderPane` comme racine du graphe de scène.
